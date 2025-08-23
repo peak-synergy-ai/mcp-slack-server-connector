@@ -159,6 +159,7 @@ export interface AdminStats {
   activeMCPTools: number;
   errorRate: number;
   avgResponseTime: number;
+  lastUpdated?: string;
 }
 
 export interface LogEntry {
