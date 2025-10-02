@@ -198,8 +198,8 @@ export class AIService {
 
   private extractSQLQuery(content: string): string {
     // Extract SQL query if present, otherwise return empty
-    const sqlMatch = content.match(/```sql\n(.*?)\n```/s) || 
-                    content.match(/SELECT.*?(?:;|$)/si);
+    const sqlMatch = content.match(/```sql\n([\s\S]*?)\n```/) || 
+                    content.match(/SELECT[\s\S]*?(?:;|$)/i);
     return sqlMatch ? sqlMatch[1] || sqlMatch[0] : '';
   }
 

@@ -30,10 +30,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     switch (command) {
       case '/ai-tools':
-        await handleAIToolsCommand(channel_id, text, res);
+        await handleAIToolsCommand(channel_id || '', text || '', res);
         break;
       case '/ai-config':
-        await handleAIConfigCommand(channel_id, user_id, res);
+        await handleAIConfigCommand(channel_id || '', user_id || '', res);
         break;
       default:
         res.status(200).json({

@@ -1,6 +1,6 @@
 import { openai } from '@ai-sdk/openai';
 import { anthropic } from '@ai-sdk/anthropic';
-import { generateText, tool } from 'ai';
+import { generateText, tool, streamText } from 'ai';
 import { z } from 'zod';
 import { ChatMessage, MCPTool, MCPToolExecution } from '../types';
 import { MCPService } from './mcp';
@@ -26,7 +26,7 @@ export class VercelAIService {
 
       // Generate response with tools
       const result = await generateText({
-        model,
+        model: model as any,
         messages: [
           {
             role: 'system',
@@ -199,8 +199,8 @@ Guidelines:
     const vercelTools = this.convertMCPToolsToVercelFormat(availableTools);
     const model = this.selectModel(aiProvider);
 
-    const { textStream, toolCalls } = await generateText({
-      model,
+    const { textStream, toolCalls } = await streamText({
+      model: model as any,
       messages: [
         {
           role: 'system',
@@ -267,7 +267,7 @@ Guidelines:
     const model = this.selectModel(provider);
 
     return await generateText({
-      model,
+      model: model as any,
       messages: messages as any,
       tools: vercelTools,
       maxToolRoundtrips: 3,

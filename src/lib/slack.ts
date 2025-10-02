@@ -42,7 +42,7 @@ export class SlackService {
       try {
         await this.handleMessage({
           channelId: event.channel,
-          userId: event.user,
+          userId: event.user || 'unknown',
           text: event.text,
           threadTs: event.thread_ts,
           ts: event.ts
@@ -185,12 +185,10 @@ export class SlackService {
     if (response.mcpToolsUsed?.length) {
       blocks.push({
         type: 'context',
-        elements: [
-          {
-            type: 'mrkdwn',
-            text: `🔧 Tools used: ${response.mcpToolsUsed.join(', ')}`
-          }
-        ]
+        text: {
+          type: 'mrkdwn',
+          text: `🔧 Tools used: ${response.mcpToolsUsed.join(', ')}`
+        }
       });
     }
 
@@ -239,7 +237,7 @@ export class SlackService {
   }
 
   public getReceiver() {
-    return this.app.receiver as ExpressReceiver;
+    return (this.app as any).receiver as ExpressReceiver;
   }
 
   public async sendMessage(channelId: string, text: string, threadTs?: string) {

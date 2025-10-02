@@ -159,7 +159,7 @@ export class EnhancedMCPService {
       throw new Error(`MCP tool discovery error: ${response.error.message}`);
     }
 
-    return response.result?.tools || [];
+    return (response.result as any)?.tools || [];
   }
 
   private async createToolFromDefinition(toolDef: MCPToolDefinition, serverId: string): Promise<MCPTool> {
@@ -242,7 +242,7 @@ export class EnhancedMCPService {
         
         switch (propSchema.type) {
           case 'string':
-            let stringSchema = z.string();
+            let stringSchema: any = z.string();
             if (propSchema.description) stringSchema = stringSchema.describe(propSchema.description);
             if (propSchema.enum) stringSchema = z.enum(propSchema.enum);
             shape[key] = stringSchema;

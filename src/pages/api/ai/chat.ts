@@ -47,7 +47,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.setHeader('Connection', 'keep-alive');
 
       const result = await streamText({
-        model,
+        model: model as any,
         messages,
         tools: vercelTools as any,
         maxToolRoundtrips: 3

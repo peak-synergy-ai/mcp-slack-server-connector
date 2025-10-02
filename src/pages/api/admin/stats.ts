@@ -9,7 +9,7 @@ export default async function handler(
     res.setHeader('Allow', ['GET']);
     return res.status(405).json({
       success: false,
-      data: null,
+      data: undefined,
       message: `Method ${req.method} Not Allowed`
     });
   }
@@ -21,6 +21,7 @@ export default async function handler(
       totalChannels: 8,
       activeMCPTools: 12,
       errorRate: 2.1,
+      avgResponseTime: 1.2,
       lastUpdated: new Date().toISOString()
     };
     
@@ -32,7 +33,7 @@ export default async function handler(
   } catch (error) {
     res.status(500).json({
       success: false,
-      data: null,
+      data: undefined,
       message: 'Failed to retrieve stats'
     });
   }

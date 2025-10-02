@@ -9,7 +9,8 @@ const mockChannels: SlackChannelConfig[] = [
     aiProvider: 'openai',
     autoRespond: true,
     enabled: true,
-    mcpTools: ['tool1', 'tool2']
+    mcpTools: ['tool1', 'tool2'],
+    triggerWords: ['@bot', 'help', 'assist']
   },
   {
     channelId: 'C0987654321',
@@ -17,7 +18,8 @@ const mockChannels: SlackChannelConfig[] = [
     aiProvider: 'anthropic',
     autoRespond: false,
     enabled: true,
-    mcpTools: ['tool1']
+    mcpTools: ['tool1'],
+    triggerWords: ['@bot']
   }
 ];
 
@@ -38,7 +40,7 @@ export default async function handler(
     } catch (error) {
       res.status(500).json({
         success: false,
-        data: null,
+        data: undefined,
         message: 'Failed to retrieve channels'
       });
     }
@@ -61,7 +63,7 @@ export default async function handler(
     } catch (error) {
       res.status(500).json({
         success: false,
-        data: null,
+        data: undefined,
         message: 'Failed to update channel'
       });
     }
@@ -69,7 +71,7 @@ export default async function handler(
     res.setHeader('Allow', ['GET', 'PUT']);
     res.status(405).json({
       success: false,
-      data: null,
+      data: undefined,
       message: `Method ${req.method} Not Allowed`
     });
   }
